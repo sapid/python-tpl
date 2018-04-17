@@ -68,7 +68,7 @@ class TPLClient(object):
         :return: access token from the server.
         """
         auth_string = bytes("%s:%s" % (str(self._client_id), self._client_secret), encoding="utf-8")
-        authorization = base64.b64encode(auth_string, newline=False)
+        authorization = base64.urlsafe_b64encode(auth_string)
         headers = {
             "Content-Type": "application/json",
             "Authorization": "Basic " + authorization
