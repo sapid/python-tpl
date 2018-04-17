@@ -171,3 +171,15 @@ class TPLClient(object):
         full_url = "%s/%s" % (self._base_url, resource_path)
         return self._execute(full_url, 'POST', data=json.dumps(data), add_headers=add_headers)
 
+    def put(self, resource_path, data=None, add_headers=None):
+        """Update (PUT) a resource.
+
+        :param resource_path: path of resource to create.
+        :param data: full payload as dict of new resource.
+        :param add_headers: additional headers merged into instance's headers.
+        :return: response in json format.
+        """
+        if data is None:
+            raise ValueError('Data Undefined.')
+        full_url = "%s/%s" % (self._base_url, resource_path)
+        return self._execute(full_url, 'PUT', data=json.dumps(data), add_headers=add_headers)
