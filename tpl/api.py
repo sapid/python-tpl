@@ -8,7 +8,6 @@
 '''
 import requests
 import json
-import base64
 
 from .exceptions import TPLAPIError
 
@@ -67,11 +66,11 @@ class TPLClient(object):
 
         :return: access token from the server.
         """
-        auth_string = bytes("%s:%s" % (str(self._client_id), self._client_secret), encoding="utf-8")
-        authorization = base64.urlsafe_b64encode(auth_string)
+        # auth_string = bytes("%s:%s" % (str(self._client_id), self._client_secret), encoding="utf-8")
+        # authorization = base64. urlsafe_b64encode(auth_string)
         headers = {
             "Content-Type": "application/json",
-            "Authorization": "Basic " + authorization
+            "Authorization": str(requests.auth.HTTPBasicAuth(self._client_id, self._client_secret))
         }
         data = {
             "grant_type": self._grant_type,
