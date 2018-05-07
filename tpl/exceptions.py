@@ -27,4 +27,4 @@ class TPLAPIError(TPLBaseError):
 
     def __str__(self):
         """Include custom msg"""
-        return repr(self.msg + self.tpl_error_msg)
+        return repr(str(self.error_code) + ': ' + self.msg + ' - ' + str(self.tpl_error_msg))
