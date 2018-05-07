@@ -24,7 +24,7 @@ class TPLClient(object):
         :param auth_path: authentication service path.
         :param client_id: client id of TPL.
         :param client_secret: client secret key of TPL.
-        :param tpl_key: WH specific TPL key.
+        :param tpl_key: WH specific TPL key, including {}
         :param grant_type: by default 'client_credentials'.
         :param user_login_id: TPL user id.
         :param session: pass a custom requests Session.
@@ -70,11 +70,11 @@ class TPLClient(object):
         # authorization = base64. urlsafe_b64encode(auth_string)
         headers = {
             "Content-Type": "application/json",
-            "Authorization": str(requests.auth.HTTPBasicAuth(self._client_id, self._client_secret))
+            "Authorization": requests.auth._basic_auth_str(self._client_id, self._client_secret)
         }
         data = {
             "grant_type": self._grant_type,
-            "tpl": "{%s}" % (self._tpl_key,),
+            "tpl": "%s" % (self._tpl_key,),
             "user_login_id": self._user_login_id
         }
         return self.post(self._auth_path, data=data, add_headers=headers)
